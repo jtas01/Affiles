@@ -7,7 +7,7 @@ $id= (isset($_GET['id']))?$_GET['id']:'';
 if($id){
     $query = "SELECT * FROM users WHERE `id` =".$id;
 }  else{
-    $query = "SELECT * FROM users";
+    $query = "SELECT * FROM users WHERE id = 5";
 }
 if($result = $pdo->query($query)){
     if($result->rowCount() > 0){
