@@ -12,10 +12,10 @@ require_once "../config/db_config.php";
     $id= $_POST['affid'];
     if(empty($id)){
 
-                    $aff_id2=$crud->create('affiliations', $fieldArr2);
-                     echo 'added';
-              
-      }else if(!empty($id)){
+            $aff_id2=$crud->create('affiliations', $fieldArr2);
+             echo 'added';
+      
+    }else if(!empty($id)){
       if($crud->updateAffilie('affiliations', $fieldArr2, $id)){
         echo 'updated';
       }else{

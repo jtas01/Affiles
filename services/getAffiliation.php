@@ -1,5 +1,5 @@
 <?php
-include '../db_config.php';
+require_once "../config/db_config.php";
  $id=$_POST['id'];
 if(isset($_POST['id'])){
    echo selectAllRecords($pdo, 'affiliations', $id);
