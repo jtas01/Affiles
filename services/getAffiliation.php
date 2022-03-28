@@ -14,7 +14,7 @@ function selectAllRecords($pdo, $tablename, $id){
     if($count>0) {
         while ($row = $result->fetch()) {
              $response[]=array(
-                     'nom_affilie' => $row['Nom_Affilié'],
+                    'nom_affilie' => $row['Nom_Affilié'],
                     'cle_id' => $row['Clé Affilié'],
                     'affid' => $row['Clé Affiliation'],
                     'anne_year' => $row['Année Affiliation'],
