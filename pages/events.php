@@ -15,17 +15,12 @@ $crmObj = new GoogleCrmClient();
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 
-<link rel="stylesheet" type="text/css" href="http://localhost/Editor-PHP-2.0.6/css/editor.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
 
 <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-<style>
-datalist {
-  display: none;
-}
-</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +68,7 @@ require_once('../google-calendar-event/functions.php');
 
 
 
-
+/*
 if(isset($_POST['event_title'])){
    echo $access_token = $_SESSION['access_token'];
     $user_timezone = $crmObj->GetUserCalendarTimezone();
@@ -101,20 +96,18 @@ if(isset($_POST['event_title'])){
         exit;
     }
 }
-
+*/
 
 
 
 ?>
 <div class="row">
-  <div class="col-sm-8">
- <form method="post" action="" name="meet_form" id="meet_form">
+            <div class="col-md-6">
+                <form method="post" action="" name="meet_form" id="meet_form">
                                         <div class="row">
                                             <!-- <h5>Meetings</h5> -->
                                             <input type="hidden" value="" name="meetids" id="meetids">
-                                            <input type="hidden" value="<?php if (!empty($affilie_id)) {
-                                                                            echo $affilie_id;
-                                                                        } ?>" name="affilie_id" id="affilie_id">
+                                            <input type="hidden" value="" name="affilie_id" id="affilie_id">
                                                                                                                 <div class="col-5">
                                                 
                                                 <div class="form-group">
@@ -170,26 +163,29 @@ if(isset($_POST['event_title'])){
                                             </div>
                                          
                                         </div>
-  </form>
-</div>
-<div class="col-sm-4">
-                                     <div class="table-responsive">
-                                          <table id="meets1" class="table table-hover"  width="100%">
-                                                    <thead class="table-primary" >
-                                                        <tr>
-                                                          
-                                                            <th  width="20%">Start Date</th>
-                                                            <th  width="20%">End Date</th>
-                                                            <th  width="20%">Subject</th>
-                                                            <th  width="20%">Remarks</th>
-                                                            <th  width="20%">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                </table> 
-                                      </div>
-                                    </div>
-                                  </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                 <div class="table-responsive">
+                      <table id="meets" class="table table-hover"  width="100%">
+                                <thead class="table-primary" >
+                                    <tr>
+                                      
+                                        <th  width="20%">Start Date</th>
+                                        <th  width="20%">End Date</th>
+                                        <th  width="20%">Subject</th>
+                                        <th  width="20%">Remarks</th>
+                                        <th  width="20%">Action</th>
+                                    </tr>
+                                </thead>
+                            </table> 
+                  </div>
+            </div>
+ </div>
+<?php 
+include '../footer.php';
 
+?>
 <script>
  // function showemail(email){
       //let email = $(this).val();
@@ -201,16 +197,14 @@ if(isset($_POST['event_title'])){
         type: 'post',
         
         success: function(response) {
-         console.log(response);
+         //console.log(response);
             data = JSON.parse(response);
            
            if (data != '') {
-        var meetTable1 = $('#meets1').DataTable({
-            "bPaginate": false,
-            "searching": false,
+        var meetTable = $('#meets').DataTable({
             "bLengthChange": false,
             "bFilter": true,
-            "bInfo": false,
+        
             "bAutoWidth": false,
             "data": data,
             "scrollY": "300px",
@@ -242,7 +236,7 @@ if(isset($_POST['event_title'])){
 
                     "mRender": function(data, type, row) {
                        // return '<a class="info-meet" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30"  data-toggle="modal" data-target="#meetModal"></a>'
-                         return '<a class="info-meet1" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a>'
+                         return '<a class="info-meet" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a>'
                     }
                 },
 
@@ -252,7 +246,22 @@ if(isset($_POST['event_title'])){
       }
     }
   });
-
+$('#meets tbody').on('click', '.info-meet', function() {
+     //  var meetTable= $("#meets").DataTable();
+        $("#addmeet").hide();
+        $("#updatemeet").show();
+        let row = $(this).parents('tr');
+        let data = meetTable.row(row).data();
+        alert('hi');
+        $("#contact-list1").val(data.affilie_contact_id).change();
+        let startd = moment(data.start_date, 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD HH:mm');
+        let endd = moment(data.end_date, 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD HH:mm');
+        $("#fromdate").val(startd);       
+        $("#todate").val(endd);
+        $("#event_title").val(data.object);
+        $("#meeting_remarks").val(data.remarks);
+       $("#meetids").val(data.id);
+});
 function addMeet(addt) {
         let cid = $("#contact-list1").val();
         let fromdate = $("#fromdate").val();
@@ -296,10 +305,7 @@ function addMeet(addt) {
         })
  }
 </script>
-<?php 
-include '../footer.php';
 
-?>
 
 
 

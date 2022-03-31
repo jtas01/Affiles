@@ -174,6 +174,22 @@ class crud
      
         return true;
     }
+        public function deleteContacts($table, $id)
+    {
+        $stmt = $this->db->prepare("Delete from $table WHERE  `N°`=:id");
+        $stmt->bindparam(":id", $id);
+        $stmt->execute();
+     
+        return true;
+    }
+     public function deleteAffiliation($table, $id)
+    {
+        $stmt = $this->db->prepare("Delete from $table WHERE  `Clé Affiliation`=:id");
+        $stmt->bindparam(":id", $id);
+        $stmt->execute();
+     
+        return true;
+    }
     public function deleteCompanys($table, $id)
     {
         $stmt = $this->db->prepare("DELETE FROM $table WHERE zoho_company_id=:id");
@@ -182,4 +198,32 @@ class crud
         return true;
     }
 
+
+
+public function updateUsers($table, $fieldArr, $id)
+{
+    try {
+        if ($fieldArr != '') {
+            foreach ($fieldArr as $key => $val) {
+                $fieldArr1[] = ':' . $key;
+                $fieldArr2[] = '`'.$key.'`';
+                $valueArr[] = $val;
+            }
+           
+            for ($i = 0; $i < count($valueArr); $i++) {
+                $stmt = $this->db->prepare("UPDATE $table SET $fieldArr2[$i]='" . $valueArr[$i] . "' where `N°` ='" . $id . "'");
+
+               // $stmt->bindparam(':'.$fieldArr2[$i], $valueArr[$i]);
+                $stmt->execute();
+
+               
+            }
+             
+        }
+        return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
 }

@@ -59,7 +59,8 @@ div.content {
 
 <div class="sidebar">
     <a class="active" href="<?php echo BASE_URL;?>pages/affilie.php">Home</a>
-    <a  href="<?php echo BASE_URL;?>pages/events.php">Event List</a>
-    <a href="<?php echo BASE_URL;?>pages/affilie.php">Affilie List</a>
+    <a  href="<?php echo BASE_URL;?>pages/events.php">Events</a>
+    <a href="<?php echo BASE_URL;?>pages/affilie.php">Affilie </a>
+    <a href="<?php echo BASE_URL;?>pages/user.php">User</a>
     <a href="<?php echo BASE_URL;?>services/logout.php">Logout</a>
 </div>

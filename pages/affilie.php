@@ -732,7 +732,7 @@ function showAffileContact(id){
                 id: id
             },
             success: function(response) {
-              // console.log(response);
+            console.log(response);
                 data = JSON.parse(response);
                
                if (response != 'No data found') {
@@ -767,7 +767,7 @@ function showAffileContact(id){
 
                               "mRender": function(data, type, row) {
                                
-                                   return '<a class="info-contact" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a>'
+                                   return '<a class="info-contact" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a> <a onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo BASE_URL?>services/deleteContacts.php?id='+row.cids+'"><img src="<?php echo BASE_URL?>img/delete.png" width="30" height="30" ></a>'
                               }
                           }
                          
@@ -828,7 +828,7 @@ function printAffilieTable(id){
 
                               "mRender": function(data, type, row) {
                                
-                                   return '<a class="info-affilie" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a>'
+                                   return '<a class="info-affilie" href="javascript:void(0);" ><img src="<?php echo BASE_URL?>img/edit.jpg" width="30" height="30" ></a>  <a onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo BASE_URL?>services/deleteAffiliation.php?id='+row.affid+'"><img src="<?php echo BASE_URL?>img/delete.png" width="30" height="30" ></a>'
                               }
                        }
                   ],
