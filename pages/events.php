@@ -21,15 +21,13 @@ $crmObj = new GoogleCrmClient();
 
 <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
 
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php include('../sidebar.php');?>
 <div class="content">
    <div class="main-panel">
         <div class="content-wrapper">
-           <h3 class="font-weight-bold">Event List</h3>
+         <h3 class="font-weight-bold pt-3">Events</h3>
       
     <?php
     $calenderid="primary";
@@ -105,7 +103,7 @@ if(isset($_POST['event_title'])){
             <div class="col-md-6">
                 <form method="post" action="" name="meet_form" id="meet_form">
                                         <div class="row">
-                                            <!-- <h5>Meetings</h5> -->
+                                         <h5 class="pt-3">Add Meetings</h5> 
                                             <input type="hidden" value="" name="meetids" id="meetids">
                                             <input type="hidden" value="" name="affilie_id" id="affilie_id">
                                                                                                                 <div class="col-5">
@@ -166,6 +164,7 @@ if(isset($_POST['event_title'])){
                 </form>
             </div>
             <div class="col-md-6">
+                        <h5 class="pt-3">Event List</h5>
                  <div class="table-responsive">
                       <table id="meets" class="table table-hover"  width="100%">
                                 <thead class="table-primary" >

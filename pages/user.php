@@ -17,29 +17,25 @@ include "../services/getselectlisting.php";
 
 <div class="content">
    <div class="main-panel">
- <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal">Add New User</a><br>
-        <div class="content-wrapper">
-        
-           <h3 class="font-weight-bold">User List</h3> 
+            <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal">Add New User</a><br>
+                    <div class="content-wrapper">        
+                        <h3 class="font-weight-bold">User List</h3> 
                                   <div class="col-12 my-3">
-
                                       <div class="table-responsive">
                                           <table id="users" class="display select expandable-table">
                                               <thead>
-                                                  <tr>                                                   
-                                                 
-                                                      <th width="10%">Login</th>
+                                                  <tr>                                                  
+                                                    <th width="10%">Login</th>
                                                       <!-- <th width="20%">Mot de passes</th> -->
                                                       <th width="20%">Name</th>
-                                                     <th width="20%">Action</th>                                                     
+                                                     <th width="20%">Action</th>                                                    
                                                   </tr>
                                               </thead>
                                               <tbody></tbody>
                                           </table>
                                       </div>                                    
                                    </div>
-  
-</div>
+                    </div>
 
  <!-- Meetings Modal -->
 <div class="modal" id="affModal">
@@ -54,8 +50,9 @@ include "../services/getselectlisting.php";
 
                  <!-- Modal body -->
                 <div class="modal-body">
-        <form method="post" action="" name="frmadd" id="frmadd">
-                        <div class="row">
+                     <form method="post" action="" name="frmadd" id="frmadd">
+                         <div class="row">
+                           <div class="col-md-6">
                             <!-- <h5>Meetings</h5> -->
                             <input type="hidden" value="" name="id" id="id">                                         
                                 <div class="justify-content-between d-flex">
@@ -63,7 +60,7 @@ include "../services/getselectlisting.php";
                                       
                                       <div class="field-select-value mr-2 mb-2">
                                            <label for="login">Login</label><br>
-                                         <!--  <input type="date" class="form-control form-control-sm" id="date_end" name="date_end" value="<?php echo date('Y-m-d'); ?>"> -->
+                                       
                                              <input type="text" class="form-control form-control-sm" id="login" name="login" value="">
                                       
                                       </div>
@@ -80,21 +77,22 @@ include "../services/getselectlisting.php";
                                        <div class="col">
                                   
                                       
-                                  <button type="button" class="btn btn-info btn-sm"  name="add" id="add" onclick="addusers('add')">Add Useres</button>
-                                  <button type="button" class="btn btn-info btn-sm"  name="update" id="update" onclick="addusers('edit')">Update</button> 
-                                  
-                                </div>                
-                                   
-                                  </div>   
-
+                                      <button type="button" class="btn btn-info btn-sm"  name="add" id="add" onclick="addusers('add')">Add </button>
+                                      <button type="button" class="btn btn-info btn-sm"  name="update" id="update" onclick="addusers('edit')">Update</button> 
+                                      
+                                     </div>                
+                                   </div>   
+                                </div>
+                            </div></div>
+                        </form>
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
-
         </div>
     </div>
  </div>
+
 <?php include '../footer.php'; ?>
 <script>
 $( document ).ready(function() {
@@ -143,6 +141,7 @@ function confirmationDelete(anchor){
           window.location=anchor.attr("href");
 }
 $("#add").show();
+$("#update").hide();
 $('#users tbody').on('click', '.info-user', function() {
        var affTable= $("#users").DataTable();
         $("#add").hide();
