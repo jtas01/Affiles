@@ -10,7 +10,13 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'ligue');
 define('BASE_URL', 'http://localhost/Affiles/');
-
+// SQL server connection information
+$sql_details = array(
+    'user' => 'root',
+    'pass' => '',
+    'db'   => 'ligue',
+    'host' => 'localhost'
+);
 /* Attempt to connect to MySQL database */
 
 try{

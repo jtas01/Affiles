@@ -1,66 +1,56 @@
-<style>
-body {
-  margin: 0;
-  font-family: "Lato", sans-serif;
-}
-
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}
-
-.sidebar a {
-  display: block;
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-}
- 
-.sidebar a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-
-.sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-}
-
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
-}
-
-@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-  }
-}
-</style>
-</head>
-<body>
-
-<div class="sidebar">
-    <a class="active" href="<?php echo BASE_URL;?>pages/affilie.php">Home</a>
-    <a  href="<?php echo BASE_URL;?>pages/events.php">Events</a>
-    <a href="<?php echo BASE_URL;?>pages/affilie.php">Affilie </a>
-    <a href="<?php echo BASE_URL;?>pages/user.php">Users</a>
-    <a href="<?php echo BASE_URL;?>services/logout.php">Logout</a>
-</div>
+  <ul class="menu">
+                    <li class="sidebar-title">Menu</li>
+                    
+                    <li
+                        class="sidebar-item active ">
+                        <a href="" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li
+                        class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-stack"></i>
+                            <span>Affiles</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a href="<?php echo BASE_URL;?>pages/affilie.php">Affiles</a>
+                            </li>
+                          
+                        </ul>
+                    </li>
+                     <li
+                        class="sidebar-item  ">
+                        <a href="<?php echo BASE_URL;?>pages/events.php" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                     <li
+                        class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                            <span>User</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a href="<?php echo BASE_URL;?>pages/user.php">User</a>
+                            </li>
+                          
+                        </ul>
+                    </li>                   
+                   
+                  <li
+                        class="sidebar-item">
+                        <a href="<?php echo BASE_URL;?>services/logout.php" class='sidebar-link'>
+                         
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                 
+                  
+                    
+                </ul>

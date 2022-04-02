@@ -87,7 +87,7 @@ public function GetUserCalendarTimezone(){
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$access_token));   
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);    
     $data = json_decode(curl_exec($ch), true);
-    echo $http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);     
+     $http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);     
     if($http_code != 200) 
         throw new Exception('Error : Failed to get timezone');
 
@@ -131,10 +131,10 @@ public function CreateCalendarEvent($calendar_id, $summary, $all_day, $event_tim
 
     return $data['id'];
 }
-public function UpdateCalendarEvent($calendar_id, $summary, $all_day, $event_time, $event_timezone, $eventid) {
+public function UpdateCalendarEvent($calendar_id, $summary, $all_day, $event_time, $event_timezone, $event_id) {
     $credentials = $this-> getAccessToken1();
     $access_token = $credentials->access_token;
-    $url_events = 'https://www.googleapis.com/calendar/v3/calendars/' . $calendar_id . '/events/'.$eventid;
+    $url_events = 'https://www.googleapis.com/calendar/v3/calendars/' . $calendar_id . '/events/' . $event_id;
 
     $curlPost = array('summary' => $summary,'description' => $event_time['description']);
     //$curlPost = array();
@@ -153,18 +153,17 @@ public function UpdateCalendarEvent($calendar_id, $summary, $all_day, $event_tim
         );
         
     }
-     $ch = curl_init(); // Create a curl handle
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); // Set curl handle header 
-            curl_setopt($ch, CURLOPT_URL, $url); // Third party API URL
-            curl_setopt($ch, CURLOPT_POST, FALSE);  // To set POST method true
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost); // To send data to the API URL
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); // To set SSL Verifier false
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); // To set return response from the API
-             $data = curl_exec($ch); // To execute the handle and get the response 
+    $ch = curl_init(); // Create a curl handle
+    curl_setopt($ch, CURLOPT_URL, $url_events);     
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);        
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');     
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '. $access_token, 'Content-Type: application/json')); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($curlPost));   
+    $data = json_decode(curl_exec($ch), true);
      $http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);     
     if($http_code != 200)
-        throw new Exception('Error : Failed to create event');
+        throw new Exception('Error : Failed to update event');
 
     return $data['id'];
 }
@@ -186,5 +185,20 @@ public function CalendarEventList($calendar_id,$eventid) {
 
     return $data;
 }
-   
+public function DeleteCalendarEvent($event_id, $calendar_id) {
+     $credentials = $this-> getAccessToken1();
+     $access_token = $credentials->access_token;
+        $url_events = 'https://www.googleapis.com/calendar/v3/calendars/' . $calendar_id . '/events/' . $event_id;
+
+        $ch = curl_init();      
+        curl_setopt($ch, CURLOPT_URL, $url_events);     
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);        
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');      
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '. $access_token, 'Content-Type: application/json'));     
+        $data = json_decode(curl_exec($ch), true);
+      echo  $http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+        if($http_code != 204) 
+            throw new Exception('Error : Failed to delete event');
+}   
 }

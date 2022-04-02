@@ -138,7 +138,7 @@ class crud
             return false;
         }
     }
-    public function BuildingUpdate($table, $fieldArr, $id)
+    public function updateMeeting($table, $fieldArr, $id)
     {
         try {
             if ($fieldArr != '') {
@@ -148,7 +148,7 @@ class crud
                     $valueArr[] = $val;
                 }
                 for ($i = 0; $i < count($valueArr); $i++) {
-                    $stmt = $this->db->prepare("UPDATE $table SET $fieldArr2[$i]='" . $valueArr[$i] . "' where zoho_batiment_id='" . $id . "'");
+                    $stmt = $this->db->prepare("UPDATE $table SET $fieldArr2[$i]='" . $valueArr[$i] . "' where id='" . $id . "'");
                   //  $stmt->bindparam(':' . $fieldArr2[$i], $valueArr[$i]);
                     $stmt->execute();
                 }
@@ -190,9 +190,9 @@ class crud
      
         return true;
     }
-    public function deleteCompanys($table, $id)
+    public function deleteEvent($table, $id)
     {
-        $stmt = $this->db->prepare("DELETE FROM $table WHERE zoho_company_id=:id");
+        $stmt = $this->db->prepare("DELETE FROM $table WHERE id=:id");
         $stmt->bindparam(":id", $id);
         $stmt->execute();
         return true;

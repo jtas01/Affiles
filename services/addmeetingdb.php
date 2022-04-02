@@ -25,26 +25,29 @@ if(isset($_POST['cid'])){
      
       
       $email = 'chandra@gmail.com';
-    //  echo   $fromdate = $_POST['fromdate'];
-      // echo  $todate = $_POST['todate'];
+       $fromdate = $_POST['fromdate'];
+    $todate = $_POST['todate'];
     // Event starting & finishing at a specific time
     $full_day_event = 0; 
     $event_time = [ 'start_time' =>$fromdate.':00', 'end_time' => $todate.':00', 'description'=>$meeting_remarks, 'email'=>$email ];
 
-     $data = $crmObj->CreateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone);
   
-  $meetingArr['affilie_meeting_id'] = $data;
+ 
 
   if($_POST['type']=='add'){
 
+     $data = $crmObj->CreateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone);
+      $meetingArr['affilie_meeting_id'] = $data;
       $crud->create('meeting', $meetingArr);      
         echo 'add';
         exit;
   }else if($_POST['type']=='edit'){
-      $meetid=$_POST['id'];   
+     $meetid=$_POST['id'];   
+    $eventid=$_POST['eventid'];   
     
       if ($meetid){
-     $data = $crmObj->UpdateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone);   
+     $data = $crmObj->UpdateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone, $eventid);   
+
         $crud->updateMeeting('meeting', $meetingArr, $meetid);          
         echo 'update';
         exit;

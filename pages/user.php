@@ -3,64 +3,51 @@ require_once "../config/db_config.php";
 require_once "../header.php";
 include "../services/getselectlisting.php";
 ?>
+            
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>User List</h3>
+               
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">User</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User List</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Basic Tables start -->
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+              <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal">Add New User</a>
+            </div>
+            <div class="card-body">
+                <table class="table"  id="users">
+                    <thead>
+                        <tr>
+                            <th width="10%">Login</th>
+                            <th width="20%">Name</th>
+                            <th width="20%">Role</th>
+                            <th width="20%">Status</th>
+                            <th width="20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
-<script src="<?php echo BASE_URL; ?>js/moment.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
-
-
-<!-- 
-<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
-<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script> -->
-<style>
-datalist {
-  display: none;
-}
-</style>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php include('../sidebar.php');?>
-
-<div class="content">
-   <div class="main-panel">
- <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal">Add New User</a><br>
-        <div class="content-wrapper">
-        
-           <h3 class="font-weight-bold">User List</h3> 
-                                  <div class="col-12 my-3">
-
-                                      <div class="table-responsive">
-                                          <table id="users" class="display select expandable-table" style="width:100%">
-                                              <thead>
-                                                  <tr>                                                   
-                                                 
-                                                      <th width="10%">Login</th>
-                                                      <!-- <th width="20%">Mot de passes</th> -->
-                                                      <th width="20%">Name</th>
-                                                      <th width="20%">Role</th>
-                                                     <th width="20%">Action</th>                                                     
-                                                  </tr>
-                                              </thead>
-                                              <tbody></tbody>
-                                          </table>
-                                      </div>                                    
-                                   </div>
-  
+    </section>
+    <!-- Basic Tables end -->
 </div>
+
 
  <!-- Meetings Modal -->
 <div class="modal" id="affModal">
@@ -146,6 +133,21 @@ $( document ).ready(function() {
                       {
                           "data": "role"
                       },
+                      {
+                         
+                            "orderable": false,
+
+                              "mRender": function(data, type, row) {
+
+                                 if(row.status=='1'){
+                                     return '<span class="badge bg-success">Active</span>';
+                                   
+                                }else{
+                                     return ' <span class="badge bg-danger">Inactive</span>';
+                                   
+                                }
+                            }   
+                      },
                       { 
                           
                             "orderable": false,
@@ -154,7 +156,7 @@ $( document ).ready(function() {
                                
                                    return '<a class="info-user" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal"><img src="<?php echo BASE_URL?>img/view.png" width="30" height="30" ></a> <a onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo BASE_URL?>services/delete.php?id='+data+'"><img src="<?php echo BASE_URL?>img/delete.png" width="30" height="30" ></a>';
                               }
-                          }
+                       }
                      
                      
                   ],
@@ -165,7 +167,7 @@ $( document ).ready(function() {
 function confirmationDelete(anchor){
        var conf = confirm('Are you sure want to delete this record?');
        if(conf)
-       window.location.href="<?php echo BASE_URL?>affilie.php";
+       window.location.href="<?php echo BASE_URL?>pages/user.php";
 }
 $("#add").show();
 $("#update").hide();

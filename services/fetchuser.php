@@ -2,7 +2,6 @@
 include '../config/db_config.php';
 
 $output = [];
-// $id= (isset($_POST['id']))?$_POST['id']:'';
 $id= (isset($_GET['id']))?$_GET['id']:'';
 if($id){
     $query = "SELECT * FROM users WHERE `N°` =".$id;
@@ -15,8 +14,9 @@ if($result = $pdo->query($query)){
             $output[] = array(
                     
                     'Login' => $row['LOGIN'],
-                    // 'Password' => $row['MOT DE PASSE'],
+                    'status' => $row['status'],
                     'Name' => $row['NOM'],
+                    'role' => $row['role'],
                     'id'   => $row['N°'],
                 );
              
