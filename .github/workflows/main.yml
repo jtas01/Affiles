@@ -17,4 +17,4 @@ jobs:
         server: ftp.cluster030.hosting.ovh.net
         username: wikisez
         password: ${{ secrets.SEP_FTP_PASSWORD }}
-        server-dir: public_html/crm/
+        server-dir: ./crm/
