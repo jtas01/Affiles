@@ -109,12 +109,11 @@ if(!isset($_SESSION['access_token']))
     <center> <h1> Login Form </h1> 
      <form name="frm" method ="post" action="<?php echo BASE_URL;?>services/login.php">  
         <div class="container">   
-            <label>Username : </label>   
+            <label>nom d'utilisateur : </label>   
             <input type="text" placeholder="Enter Username" name="user" required>  
-            <label>Password : </label>   
+            <label>le mot de passe : </label>   
             <input type="password" placeholder="Enter Password" name="password" required>  
             <button type="submit" name="submit" class="btn btn-primary">Login</button> 
-              
         </div>   
     </form>   </center>   
      
