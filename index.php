@@ -59,7 +59,7 @@ if(!isset($_SESSION['access_token']))
     Body {  
     font-family: Calibri, Helvetica, sans-serif;  
     background-color: pink;  
-    width: 50%;
+    width: 100%;
     }  
     button {   
     background-color: #4CAF50;   
@@ -95,7 +95,7 @@ if(!isset($_SESSION['access_token']))
     .container {   
     padding: 25px;   
     background-color: lightblue; 
-    width: 100%;
+    width: 500px;
     align-content: center; 
     }   
 </style>   
@@ -106,18 +106,17 @@ if(!isset($_SESSION['access_token']))
     . "scope=https://www.googleapis.com/auth/calendar.events&response_type=code& "
     . "redirect_uri=http://localhost/ligueCRM/index.php'>Google</a>";?>
 <body>    
-    <center> <h1> Login Form </h1> </center>   
-    <form name="frm" method ="post" action="<?php echo BASE_URL;?>services/login.php">  
+    <center> <h1> Login Form </h1> 
+     <form name="frm" method ="post" action="<?php echo BASE_URL;?>services/login.php">  
         <div class="container">   
             <label>Username : </label>   
             <input type="text" placeholder="Enter Username" name="user" required>  
             <label>Password : </label>   
             <input type="password" placeholder="Enter Password" name="password" required>  
             <button type="submit" name="submit" class="btn btn-primary">Login</button> 
-            <input type="checkbox" checked="checked"> Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>   
               
         </div>   
-    </form>     
+    </form>   </center>   
+     
 </body>     
 </html>  
