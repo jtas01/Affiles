@@ -3,44 +3,96 @@ require_once "../config/db_config.php";
 require_once "../header.php";
 include "../services/getselectlisting.php";
 ?>
-
+<style>
+    #hidden_checkboxes input{
+        min-height: unset;
+    }
+</style>
             
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Affilie List</h3>
+                <h3>Liste des affiliés</h3>
                
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Affilie List</li>
+                        <li class="breadcrumb-item"><a href="index.html">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liste d'affiliation</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
-
+      
+      <button class="btn btn-primary btn-primary-sm" id="hidden_checkboxes_btn">Colonnes</button>   
+      <div class="hidden-items" id="hidden_checkboxes">
+          Basculer la colonne: <br>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox1" data-column="0" checked/>
+          <label for="checkbox1">N°</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox2" data-column="1" checked/>
+          <label for="checkbox2">Nom</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox3" data-column="2" checked/>
+          <label for="checkbox3">Prenom</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox4" data-column="3" checked/>
+          <label for="checkbox4">Adresse</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox5" data-column="4" checked/>
+          <label for="checkbox5">CP</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox6" data-column="5" />
+          <label for="checkbox6">Code Handicaped</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox7" data-column="6" />
+          <label for="checkbox7">Adresse Envoi</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox8" data-column="7" />
+          <label for="checkbox8">CP Envoi</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox9" data-column="8" checked/>
+          <label for="checkbox9">Conjoint Affilié</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox10" data-column="9" />
+          <label for="checkbox10">Telephone</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox11" data-column="10" />
+          <label for="checkbox11">GSM</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox12" data-column="11" checked/>
+          <label for="checkbox12">Courriel</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox13" data-column="12" />
+          <label for="checkbox13">Memo</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox14" data-column="13" />
+          <label for="checkbox14">LaClef</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox144" data-column="14" checked/>
+          <label for="checkbox144">Date de décès</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox15" data-column="15" />
+          <label for="checkbox15">Date du diagnostic</label>
+          <input type="checkbox" class="form-control-sm toggle-vis" id="checkbox16" data-column="16" />
+          <label for="checkbox16">Naissance</label>
+      </div>
     <!-- Basic Tables start -->
     <section class="section">
         <div class="card">
             <div class="card-header">
-              <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" id ="addaff" data-target="#affModal">Add New Affilie</a>
+              <a  class="info-meet-add btn btn-info btn-sm  my-3"  style="text-align: right; float: right;" href="javascript:void(0);"  data-toggle="modal" id ="addaff" data-target="#affModal">Ajouter un Affilié</a>
             </div>
             <div class="card-body">
-                <table class="table"  id="affilie">
+                <table class="display select expandable-table" id="affilie" style="width:100%">
                     <thead>
                         <tr>
-                          <th width="10%">Nom Affilie</th>
-                          <th width="20%">Prenom Affilie</th>
-                          <th width="20%">Date de décès</th>
-                          <th width="20%">Date du diagnostic</th>                                         
-                          <th width="20%">Courriel</th>                                                 
-                          <th width="10%">Naissance Affilié</th>
-                          <th width="20%">Téléphone Affilié</th>
-                          <th width="20%">Action</th>
+                          <th>N° de membre</th>
+                          <th>Nom</th>
+                          <th>Prenom</th>
+                          <th>Adresse</th>
+                          <th>CP</th>
+                          <th>Code Handicaped</th>
+                          <th>Adresse Envoi</th>
+                          <th>CP Envoi</th>
+                          <th>Conjoint Affilié</th>
+                          <th>Telephone</th>
+                          <th>GSM</th>
+                          <th>Courriel</th>
+                          <th>Memo</th>
+                          <th>LaClef</th>
+                          <th>Date de décès</th>
+                          <th>Date du diagnostic</th>                                                      
+                          <th>Naissance</th>
+                          <th>Action</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -58,7 +110,7 @@ include "../services/getselectlisting.php";
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Affilie</h4>
+                <h4 class="modal-title">Affilié</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -71,7 +123,7 @@ include "../services/getselectlisting.php";
                                 <div class="justify-content-between d-flex">
                                   <div class="field-group p-3 bg-white">
                                      <div class="operator-select mr-2 mb-2">
-                                         <label for="status">Status</label><br>
+                                         <label for="status">Statut</label><br>
                                           <select id="status" class="form-control form-control-sm" name="status">
                                              <option selected disabled hidden>select</option>
                                               <?php
@@ -83,15 +135,15 @@ include "../services/getselectlisting.php";
                                       </div>
                                       
                                       <div class="field-select-value mr-2 mb-2">
-                                           <label for="prenom_affilie">Prenom Affilie</label><br>
+                                           <label for="prenom_affilie">Prenom</label><br>
                                          <!--  <input type="date" class="form-control form-control-sm" id="date_end" name="date_end" value="<?php echo date('Y-m-d'); ?>"> -->
-                                             <input type="text" class="form-control form-control-sm" id="prenom_affilie" name="prenom_affilie" value="">
+                                             <input type="text" class="form-control form-control-sm" id="prenom_affilie" name="prenom_affilie" value="" required>
                                       
                                       </div>
                                       <div class="field-select mr-2 mb-2">
                                      
-                                             <label for="nom_affilie">Nom Affilie</label><br>
-                                         <input type="text" class="form-control form-control-sm" id="nom_affilie" name="nom_affilie" value="">
+                                             <label for="nom_affilie">Nom</label><br>
+                                         <input type="text" class="form-control form-control-sm" id="nom_affilie" name="nom_affilie" value="" required>
                                         
                                       </div>
                                        <div class="field-select mr-2 mb-2">
@@ -106,7 +158,7 @@ include "../services/getselectlisting.php";
                                        
                                       </div>
                                       <div class="field-select mr-2 mb-2">
-                                           <label for="social_status">Status Social</label><br>
+                                           <label for="social_status">Statut social</label><br>
                                            <select id="social_status" class="form-control form-control-sm" name="social_status">
                                               <option selected disabled hidden>select</option>
                                               <?php
@@ -143,15 +195,15 @@ include "../services/getselectlisting.php";
                                   <div class="field-group p-3 bg-white">
                                   
                                       <div class="date-end mr-2 mb-2">
-                                              <label for="address_affilie">Adresse Affilié</label><br>
+                                              <label for="address_affilie">Adresse</label><br>
                                             <input type="text" class="form-control form-control-sm" id="address_affilie" name="address_affilie" value="">
                                       </div>
                                       <div class="field-select mr-2 mb-2">
-                                          <label for="insti_affilie">Institution Affilie</label><br>
+                                          <label for="insti_affilie">Institution</label><br>
                                          <input type="text" class="form-control form-control-sm" id="insti_affilie" name="insti_affilie" value="">
                                       </div>
                                       <div class="field-select mr-2 mb-2">
-                                          <label for="conjoint_affilie">Conjoint Affilie</label><br>
+                                          <label for="conjoint_affilie">Conjoint</label><br>
                                          <input type="text" class="form-control form-control-sm" id="conjoint_affilie" name="conjoint_affilie"  value="">
                                       </div>
                                                                  
@@ -164,7 +216,7 @@ include "../services/getselectlisting.php";
                                       </div>                                  
                                       <div class="date-end mr-2 mb-2">
                                           <label for="courriel">Courriel</label><br>
-                                             <input type="text" class="form-control form-control-sm" id="courriel" name="courriel" value="">
+                                             <input type="text" class="form-control form-control-sm" id="courriel" name="courriel" value="" required>
                                       </div>
                                       <div class="field-select mr-2 mb-2">
                                           <label for="insti_affilie_envoi">Institution Affilie Envoi</label><br>
@@ -194,7 +246,7 @@ include "../services/getselectlisting.php";
                                            <textarea class="form-control form-control-sm" id="memo" name="memo"></textarea>
                                         </div>                             
                                          <div class="field-select mr-2 mb-2">
-                                            <label for="nbre_enfants">Nbre_enfants</label><br>
+                                            <label for="nbre_enfants">Nmbre Enfants</label><br>
                                            <input type="text" class="form-control form-control-sm" id="nbre_enfants" value="" name="nbre_enfants">
                                         </div>
                                        
@@ -262,7 +314,7 @@ include "../services/getselectlisting.php";
                                            <input type="date" class="form-control form-control-sm" id="date_du_diagnostic" name="date_du_diagnostic" value="">
                                         </div>  
                                          <div class="field-select-value mr-2 mb-2">
-                                          <label for="cle_situation_familiale">situation familiale</label><br>
+                                          <label for="cle_situation_familiale">Situation Familiale</label><br>
                                            <select id="cle_situation_familiale" class="form-control form-control-sm" name="cle_situation_familiale">
                                               <option selected disabled hidden>select</option>
                                               <?php
@@ -288,15 +340,15 @@ include "../services/getselectlisting.php";
                                      <div class="field-group p-3 bg-white">
                                 
                                         <div class="field-select mr-2 mb-2">
-                                            <label for="code_handicaped">Code Handicaped</label><br>
+                                            <label for="code_handicaped">Code handicape</label><br>
                                            <input type="text" class="form-control form-control-sm" id="code_handicaped" name="code_handicaped" value="">
                                         </div>
                                        
 
-                                        <div class="field-select mr-2 mb-2">
+                                        <!-- <div class="field-select mr-2 mb-2">
                                             <label for="Sylvie"> Sylvie</label><br>
                                            <input type="text" class="form-control form-control-sm" id="Sylvie" name="Sylvie" value="">
-                                        </div>
+                                        </div> -->
                                        <div class="field-select-value mr-2 mb-2">
                                           <label for="cle_etat_civil">Etat Civil</label><br>
                                            <select id="cle_etat_civil" class="form-control form-control-sm" name="cle_etat_civil">
@@ -315,8 +367,8 @@ include "../services/getselectlisting.php";
                             </div>
                         </div>  
                              <div class="submit mt-4">
-                                                <button type="button" class="btn btn-info p-4" style="float: right;" id="add" onclick="addActionAffilie()">Add Affilie</button><br><br><br>
-                                               <button type="button" class="btn btn-info p-4" style="float: right;" id="update"  onclick="addActionAffilie()">Update Affilie</button>
+                                                <button type="button" class="btn btn-info p-4" style="float: right;" id="add" onclick="addActionAffilie()">Ajouter un Affilie</button><br><br><br>
+                                               <button type="button" class="btn btn-info p-4" style="float: right;" id="update"  onclick="addActionAffilie()">Mise à jour Affilie</button>
                                         </div>
       
                                                     </div>
@@ -326,7 +378,7 @@ include "../services/getselectlisting.php";
                                                 </div>
               <div class="card">
                   <div class="card-body">                            
-                    <h5> Add Affiliation</h5>                    
+                    <h5> Ajouter un Affiliation</h5>                    
                      <div class="col-md-12 grid-margin">
                             <form name="AffilieSubmit" method="post" id="AffilieSubmit">
                                      <input type="hidden" value="" name="cleids" id="cleids" value="<?php echo  $affilie_id;?>">
@@ -407,8 +459,8 @@ include "../services/getselectlisting.php";
                                     <div class="col">
                                   
                                       
-                                  <button type="button" class="btn btn-info btn-sm"  name="addAffiliationAction" id="addAffiliationAction" onclick="addAffiliation()">Add Affiliation</button> 
-                                  <button type="button" class="btn btn-info btn-sm"  name="updateAffiliationAction" id="updateAffiliationAction" onclick="addAffiliation()">Update Affiliation</button> 
+                                  <button type="button" class="btn btn-info btn-sm"  name="addAffiliationAction" id="addAffiliationAction" onclick="addAffiliation()">Ajouter</button> 
+                                  <button type="button" class="btn btn-info btn-sm"  name="updateAffiliationAction" id="updateAffiliationAction" onclick="addAffiliation()">Mise à jour</button> 
                                 </div>
                                 </div>
                            <br>
@@ -455,14 +507,14 @@ include "../services/getselectlisting.php";
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="nom" class="col-form-label">Nom</label>
-                                                 <input type="text" class="form-control form-control-sm" name="nom" id="nom" placeholder="Nom">
+                                                 <input type="text" class="form-control form-control-sm" name="nom" id="nom" placeholder="Nom" required>
                                             </div>
                                         </div>
                                        
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="prenom" class="col-form-label">Prenom</label>
-                                                <input type="text" class="form-control form-control-sm" name="prenom" id="prenom" placeholder="Prenom">
+                                                <input type="text" class="form-control form-control-sm" name="prenom" id="prenom" placeholder="Prenom" required>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -481,12 +533,12 @@ include "../services/getselectlisting.php";
                                           <div class="col">
                                             <div class="form-group">
                                                 <label for="gsm" class="col-form-label">Email</label>
-                                                <input type="text" name="email" id="email" placeholder="Email">  
+                                                <input type="text" name="email" id="email" placeholder="Email" required>  
                                             </div>
                                         </div>
                                         <div class="col">
-                                          <input type="button" class="btn btn-sm btn-primary mt-4" name="addContactAction" id="addContactAction" value="Add" onclick="addContactToAffilie('add');">
-                                             <input type="button" class="btn btn-sm btn-primary mt-4" name="updateContactAction" id="updateContactAction" value="Update" onclick="addContactToAffilie('edit');">
+                                          <input type="button" class="btn btn-sm btn-primary mt-4" name="addContactAction" id="addContactAction" value="Ajouter" onclick="addContactToAffilie('add');">
+                                             <input type="button" class="btn btn-sm btn-primary mt-4" name="updateContactAction" id="updateContactAction" value="Mise à jour" onclick="addContactToAffilie('edit');">
                                         </div>
 
                                     </div>                          
@@ -517,9 +569,9 @@ include "../services/getselectlisting.php";
         </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
+<!--                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                </div> -->
 
         </div>
     </div>
@@ -527,70 +579,146 @@ include "../services/getselectlisting.php";
 <?php require_once "../footer.php";?>      
 <script>
 $( document ).ready(function() {
-
+      $('#hidden_checkboxes').hide();
+      $('#hidden_checkboxes_btn').on('click', ()=>{
+          $('#hidden_checkboxes').toggle();
+      })
     $.ajax({
         url: '<?php echo BASE_URL;?>services/getAffilie.php',
         type: 'post',
         success: function(data) {
-         console.log(data);
-        data = JSON.parse(data);
-        var affTable =  $('#affilie').DataTable({
-                    "destroy": true,
-                    "data":data,
-                    "searching": true,
-                    "paging": true,
-                    "info": true,
-                    "scrollCollapse": true,
-                     columns: [{
-                          "data": "nom_affilie"
-                      },
-                      {
-                          "data": "prenom_affilie"
-                      },
-                      { "data": "date_de_deces",
-                          render: function(data) {
-                                  if(data!='0000-00-00'){
-                                   return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
-                                   } else return 'N/A';
-                          }
-                      },
-                       { "data": "date_du_diagnostic",
-                          render: function(data) {
-                                  if(data!='0000-00-00'){
-                                   return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
-                                   } else return 'N/A';
-                          }
-                      },
-                      
-                      {
-                          "data": "courriel"
-                      },
-                      { "data": "naissance_affilie",
-                          render: function(data) {
-                                  if(data!='0000-00-00'){
-                                   return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
-                                   } else return 'N/A';
-                          }
-                      },
-                     
-                      {
-                          "data": "tele_affilie"
-                      },
-                      { 
-                          "data": "cle_id",
-                            "orderable": false,
+            console.log(data);
+            data = JSON.parse(data);
+            var affTable =  $('#affilie').DataTable({
+                                "destroy": true,
+                                "language": {
+                                    "emptyTable":     "No data available in table",
+                                    "info":           "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                                    "infoEmpty":      "Affichage de 0 à 0 sur 0 entrées",
+                                    "infoFiltered":   "(filtré à partir de _MAX_ entrées au total)",
+                                    "thousands":      ",",
+                                    "lengthMenu":     "Afficher _MENU_ entrées",
+                                    "loadingRecords": "Chargement...",
+                                    "processing":     "Traitement...",
+                                    "search":         "Rechercher:",
+                                    "zeroRecords":    "Aucun enregistrements correspondants trouvés",
+                                    "paginate": {
+                                        "first":      "Premier",
+                                        "last":       "Dernier",
+                                        "next":       "Suivant",
+                                        "previous":   "Précédent"
+                                    },
+                                    "aria": {
+                                        "sortAscending":  ": activate to sort column ascending",
+                                        "sortDescending": ": activate to sort column descending"
+                                    },
+                                  },
+                                "data":data,
+                                "searching": true,
+                                "paging": true,
+                                "info": true,
+                                "scrollCollapse": true,
+                                "columns": [
+                                  {
+                                      "data": "cle_id"
+                                  },
+                                  {
+                                      "data": "nom_affilie"
+                                  },
+                                  {
+                                      "data": "prenom_affilie"
+                                  },
+                                  {
+                                      "data": "address_affilie"
+                                  },
+                                  {
+                                      "data": "cp"
+                                  },
+                                  {
+                                      "data": "code_handicaped",
+                                      "visible": false
+                                  },
+                                  {
+                                      "data": "address_envoi",
+                                      "visible": false
+                                  },
+                                  {
+                                      "data": "cp_envoi",
+                                      "visible": false
+                                  },
+                                  {
+                                      "data": "conjoint_affilie"
+                                  },
+                                  {
+                                      "data": "tele_affilie",
+                                      "visible": false
+                                  },
+                                  {
+                                      "data": "gsm_ou_autre_tel",
+                                      "visible": false
+                                  },
+                                  {
+                                      "data": "courriel"
+                                  },
+                                  {
+                                      "data": "memo",
+                                      "visible": false
+                                  },              
+                                  {
+                                      "data": "LaClef",
+                                      "visible": false
+                                  },
+                                  { "data": "date_de_deces",
+                                      render: function(data) {
+                                              if(data!='0000-00-00'){
+                                               return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
+                                               } else return 'N/A';
+                                      }
+                                  },
+                                   { "data": "date_du_diagnostic",
+                                        "visible": false,
+                                      render: function(data) {
+                                              if(data!='0000-00-00'){
+                                               return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
+                                               } else return 'N/A';
+                                      }
+                                  },
+                                  { "data": "naissance_affilie",
+                                        "visible": false,
+                                      render: function(data) {
+                                              if(data!='0000-00-00'){
+                                               return moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY');
+                                               } else return 'N/A';
+                                      }
+                                  },
+                                  { 
+                                      "data": "cle_id",
+                                      "orderable": false,
 
-                              "mRender": function(data, type, row) {
-                               
-                                   return '<a class="info-meet" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal"><img src="<?php echo BASE_URL?>img/view.png" width="30" height="30" ></a> <a onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo BASE_URL?>services/delete.php?id='+data+'"><img src="<?php echo BASE_URL?>img/delete.png" width="30" height="30" ></a>';
-                              }
-                          }
-                     
-                     
-                  ],
+                                      "mRender": function(data, type, row) {
+                                           return '<a class="info-meet" href="javascript:void(0);"  data-toggle="modal" data-target="#affModal"><img src="<?php echo BASE_URL?>img/view.png" width="30" height="30" ></a> <a onclick="javascript:confirmationDelete($(this));return false;" href="<?php echo BASE_URL?>services/delete.php?id='+data+'"><img src="<?php echo BASE_URL?>img/delete.png" width="30" height="30" ></a>';
+                                      }
+                                  }
+                                ],
                 });
+            
+                // Hide selected columns
+                $('.toggle-vis').on('change', function(e) {
+                    e.preventDefault();
+
+                    // Get the column API object
+                    var column = affTable.column( $(this).attr('data-column') );
+
+                    // Toggle the visibility
+                    column.visible(!column.visible());
+                });
+
+
             } 
     });
+
+               
+
 $("#updateAffiliationAction").hide();   
 $("#addAffiliationAction").hide();
 $("#addContactAction").hide();
@@ -725,6 +853,28 @@ function showAffileContact(id){
                if (response != 'No data found') {
                 var contactTable = $('#affiliecontact').DataTable({
                         "destroy": true,
+                        "language": {
+                          "emptyTable":     "No data available in table",
+                          "info":           "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                          "infoEmpty":      "Affichage de 0 à 0 sur 0 entrées",
+                          "infoFiltered":   "(filtré à partir de _MAX_ entrées au total)",
+                          "thousands":      ",",
+                          "lengthMenu":     "Afficher _MENU_ entrées",
+                          "loadingRecords": "Chargement...",
+                          "processing":     "Traitement...",
+                          "search":         "Rechercher:",
+                          "zeroRecords":    "Aucun enregistrements correspondants trouvés",
+                          "paginate": {
+                              "first":      "Premier",
+                              "last":       "Dernier",
+                              "next":       "Suivant",
+                              "previous":   "Précédent"
+                          },
+                          "aria": {
+                              "sortAscending":  ": activate to sort column ascending",
+                              "sortDescending": ": activate to sort column descending"
+                          },
+                        },
                         "data": data,
                         "searching": true,
                         "paging": true,
@@ -779,6 +929,28 @@ function printAffilieTable(id){
            if (data != '') {
                 $('#affiliation').DataTable({
                     "destroy": true,
+                    "language": {
+                        "emptyTable":     "No data available in table",
+                        "info":           "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                        "infoEmpty":      "Affichage de 0 à 0 sur 0 entrées",
+                        "infoFiltered":   "(filtré à partir de _MAX_ entrées au total)",
+                        "thousands":      ",",
+                        "lengthMenu":     "Afficher _MENU_ entrées",
+                        "loadingRecords": "Chargement...",
+                        "processing":     "Traitement...",
+                        "search":         "Rechercher:",
+                        "zeroRecords":    "Aucun enregistrements correspondants trouvés",
+                        "paginate": {
+                            "first":      "Premier",
+                            "last":       "Dernier",
+                            "next":       "Suivant",
+                            "previous":   "Précédent"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                      },
                     "data": data,
                     "searching": false,
                     "paging": false,
@@ -851,7 +1023,7 @@ var affTable= $("#affilie").DataTable();
           
           
         }else {
-            alert('There will be an error.Please try again lator');
+            alert('There will be an error.Please try again later');
         }
       }
   });
@@ -862,7 +1034,7 @@ $('#affiliecontact tbody').on('click', '.info-contact', function() {
         $("#updateContactAction").show();
         let row = $(this).parents('tr');
         let data = contactTable.row(row).data();
-        $("#type").val(data.Type).change();      
+        $("#type").val(data.Type1).change();      
         $("#email").val(data.Email);
         $("#gsm").val(data.Gsm);
         $("#telephone").val(data.tele);
@@ -921,7 +1093,7 @@ function addContactToAffilie(action) {
                   showAffileContact(affid);
                   
                 } else {
-                    alert('There will be an error.Please try again lator');
+                    alert('There will be an error.Please try again later');
                 }
                }
       });
@@ -958,7 +1130,7 @@ function addAffiliation(){
                 alert('Affiliation has been updated successfully');
                     printAffilieTable(cle_id);
             } else {
-                alert('There will be an error.Please try again lator');
+                alert('There will be an error.Please try again later');
             }
           }
   });

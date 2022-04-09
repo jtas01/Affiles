@@ -9,10 +9,12 @@ if(isset($_POST['submit']))
         $password = trim($_POST['password']);
 
         
-          echo  $sql = "select * from users where Login = :Login ";
+          echo  $sql = "select * from users where (Login = :Login and `MOT DE PASSE` = :pass) or (default_email = :Login and `MOT DE PASSE` = :pass) or (gmail = :Login and `MOT DE PASSE` = :pass)";
             $handle = $pdo->prepare($sql);
-            $params = ['Login'=>$user];
+            $params = ['Login'=>$user, 'pass'=>$password];
             $handle->execute($params);
+           echo $handle->rowCount();
+           print_r($handle);
             if($handle->rowCount() > 0)
             {
 
