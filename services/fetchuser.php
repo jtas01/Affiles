@@ -14,9 +14,12 @@ if($result = $pdo->query($query)){
             $output[] = array(
                     
                     'Login' => $row['LOGIN'],
+                    'password' => $row['MOT DE PASSE'],
                     'status' => $row['status'],
                     'Name' => $row['NOM'],
                     'role' => $row['role'],
+                    'default_email' => $row['default_email'],
+                    'gmail' => $row['gmail'],
                     'id'   => $row['N°'],
                 );
              
